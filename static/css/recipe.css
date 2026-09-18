@@ -1,0 +1,289 @@
+.recipe-main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 50px 25px 100px;
+}
+
+.back-button {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.back-button:hover {
+    color: #222;
+}
+
+.recipe-section {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+}
+
+.recipe-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.recipe-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.recipe-tags span {
+    display: inline-block;
+    padding: 5px 10px;
+
+    background: #f0f0f0;
+    color: #666;
+
+    border-radius: 20px;
+
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.recipe-header h1 {
+    font-size: 32px;
+    margin-top: 8px;
+}
+
+.servings {
+    margin-top: 8px;
+    color: #777;
+    font-size: 14px;
+}
+
+.save-button {
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 20px;
+    padding: 9px 16px;
+    cursor: pointer;
+}
+
+.recipe-card {
+    border-top: 1px solid #eee;
+    padding: 30px 0;
+}
+
+.recipe-card h2,
+.ai-chat h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+/* Ingredients */
+
+.ingredient-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.ingredient {
+    display: flex;
+    justify-content: space-between;
+    padding: 13px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 17px;
+}
+
+.ingredient > span:last-child {
+    color: #555;
+}
+
+/* Steps */
+
+.steps {
+    padding-left: 25px;
+}
+
+.steps li {
+    padding-left: 8px;
+    margin-bottom: 20px;
+    line-height: 1.7;
+    font-size: 17px;
+}
+
+.steps li:last-child {
+    margin-bottom: 0;
+}
+
+/* Substitutions */
+
+.substitution-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.substitution {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: #f7f7f5;
+    border-radius: 10px;
+    font-size: 17px;
+}
+
+.substitution-side {
+    flex: 1;
+}
+
+.substitution-amount {
+    margin-top: 4px;
+    color: #777;
+    font-size: 13px;
+}
+
+.substitution-arrow {
+    color: #999;
+    flex-shrink: 0;
+}
+
+/* AI Chat */
+
+.ai-chat {
+    border-top: 1px solid #eee;
+    padding-top: 30px;
+}
+
+.ai-chat h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.ai-description {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.chat-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.chat-message {
+    max-width: 80%;
+    font-size: 16px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.chat-message.user {
+    align-self: flex-end;
+    padding: 11px 15px;
+    background: #f0f0f0;
+    border-radius: 18px 18px 4px 18px;
+    color: #222;
+}
+
+.chat-message.ai {
+    align-self: flex-start;
+    padding: 2px 0;
+    color: #222;
+}
+
+/* Chat Input */
+
+.chat-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 7px 7px 16px;
+    background: white;
+    border: 1px solid #d9d9d9;
+    border-radius: 16px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.chat-box:focus-within {
+    border-color: #aaa;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.04);
+}
+
+.chat-box input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+    padding: 10px 0;
+}
+
+.chat-box input::placeholder {
+    color: #999;
+}
+
+.chat-box button {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 50%;
+    background: #222;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: opacity 0.2s;
+}
+
+.chat-box button:hover {
+    opacity: 0.8;
+}
+
+.chat-box button:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+    .recipe-main {
+        padding: 30px 15px 80px;
+    }
+
+    .recipe-section {
+        padding: 25px;
+        border-radius: 16px;
+    }
+
+    .recipe-header h1 {
+        font-size: 26px;
+    }
+
+    .recipe-header {
+        gap: 15px;
+    }
+
+    .save-button {
+        flex-shrink: 0;
+    }
+
+    .chat-message {
+        max-width: 90%;
+    }
+
+    .chat-box {
+        border-radius: 14px;
+    }
+}

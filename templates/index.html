@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Extractor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">Recipe Extractor</div>
+    </header>
+
+    <main class="home-main">
+        <div class="intro">
+            <h1>인스타 레시피를<br>쉽게 저장하세요</h1>
+
+            <p>
+                Instagram Reels의 레시피를<br>
+                한눈에 보기 쉽게 정리해드립니다.
+            </p>
+        </div>
+
+        <form action="/loading" method="GET" class="url-box">
+            <label for="instagram-url">Instagram Reel URL</label>
+
+            <div class="input-wrapper">
+                <input
+                    type="text"
+                    id="instagram-url"
+                    name="url"
+                    placeholder="https://www.instagram.com/reels/..."
+                    required
+                >
+
+                <button type="submit">
+                    레시피 추출
+                </button>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

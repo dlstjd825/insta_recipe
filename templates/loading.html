@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>레시피 분석 중</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loading.css') }}">
+    <script defer src="{{ url_for('static', filename='js/loading.js') }}"> </script>
+</head>
+
+<body data-url="{{ url }}">
+    <header class="header">
+        <div class="logo">Recipe Extractor</div>
+    </header>
+
+    <main class="loading-main">
+        <div class="loading-content">
+            <div class="spinner"></div>
+
+            <h1>레시피를 분석하고 있어요</h1>
+
+            <p>
+                Instagram 게시물에서 레시피 정보를 추출하고<br>
+                보기 쉽게 정리하고 있습니다.
+            </p>
+
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </main>
+
+    <div id="error-modal" class="error-modal hidden">
+        <div class="error-modal-content">
+            <h2>분석 시간이 너무 오래 걸리고 있어요</h2>
+
+            <p>
+                레시피 분석에 3분 이상 걸렸습니다.<br>
+                잠시 후 다시 시도해주세요.
+            </p>
+
+            <button id="error-confirm-button">
+                확인
+            </button>
+        </div>
+    </div>
+</body>
+</html>
