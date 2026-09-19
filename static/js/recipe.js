@@ -1,6 +1,42 @@
 const recipeText = sessionStorage.getItem("recipe");
 let recipe = null;
 
+const saveButton = document.querySelector(".save-button");
+saveButton.addEventListener("click", saveRecipe);
+
+const shortcode = sessionStorage.getItem("shortcode");
+
+checkSavedRecipe();
+
+async function checkSavedRecipe() {
+    if (!shortcode) {
+        return;
+    }
+
+    try {
+        const response = await fetch("/api/recipes/check", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                shortcode: shortcode
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.saved) {
+            saveButton.textContent = "♥ 저장됨";
+            saveButton.disabled = true;
+        }
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+
 if (!recipeText) {
     window.location.href = "/";
 } else {
@@ -26,7 +62,7 @@ if (!recipeText) {
 
     if (servingElement) {
         servingElement.textContent =
-            recipe.servings ? `${recipe.servings}인분` : "";
+            recipe.servings ? `${recipe.servings}` : "";
     }
 
     const ingredientList =
@@ -131,115 +167,113 @@ questionInput.addEventListener("keydown", function(event) {
 // =========================
 // AI에게 질문
 // =========================
+let isAnswering = false;
+
+function typeAnswer(element, text, speed = 25) {
+    return new Promise((resolve) => {
+        element.textContent = "";
+        let index = 0;
+        const timer = setInterval(() => {
+            element.textContent += text[index];
+            index++;
+            if (index >= text.length) {
+                clearInterval(timer);
+                resolve();
+            }
+        }, speed);
+    });
+}
 
 async function askQuestion() {
-
-    const question =
-        questionInput.value.trim();
-
+    if (isAnswering) {
+        return;
+    }
+    const question = questionInput.value.trim();
     if (!question) {
         return;
     }
-
-
-    // =========================
-    // 사용자 메시지 추가
-    // =========================
-
-    const userMessage =
-        document.createElement("div");
-
-    userMessage.className =
-        "chat-message user";
-
-    userMessage.textContent =
-        question;
-
-    chatMessages.appendChild(userMessage);
-
-
-    // 입력창 비우기
-    questionInput.value = "";
-
-
-    // =========================
-    // AI 답변 자리 생성
-    // =========================
-
-    const aiMessage =
-        document.createElement("div");
-
-    aiMessage.className =
-        "chat-message ai";
-
-    aiMessage.textContent =
-        "답변을 생각하고 있어요...";
-
-    chatMessages.appendChild(aiMessage);
-
-
-    // 버튼 비활성화
+    isAnswering = true;
     askButton.disabled = true;
-
-
-    // 가장 최근 메시지가 보이도록 이동
+    const userMessage = document.createElement("div");
+    userMessage.className = "chat-message user";
+    userMessage.textContent = question;
+    chatMessages.appendChild(userMessage);
+    questionInput.value = "";
+    const aiMessage = document.createElement("div");
+    aiMessage.className = "chat-message ai";
+    aiMessage.textContent = "답변을 생각하고 있어요...";
+    chatMessages.appendChild(aiMessage);
     aiMessage.scrollIntoView({
         behavior: "smooth",
         block: "nearest"
     });
+    try {
+        const response = await fetch("/api/chat", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                recipe: recipe,
+                question: question
+                
+            })
+        });
+        const data = await response.json();
+        if (!response.ok) {
+            throw new Error(data.error || "답변을 가져오지 못했습니다.");
+        }
+        await typeAnswer(aiMessage, data.answer, 25);
+    } catch (error) {
+        console.error(error);
+        aiMessage.textContent = error.message;
+    } finally {
+        isAnswering = false;
+        askButton.disabled = false;
+        questionInput.focus();
+    }
+}
 
+
+// =========================
+// 레시피 저장
+// =========================
+async function saveRecipe() {
+    if (!recipe) {
+        return;
+    }
+
+    if (saveButton.disabled) {
+        return;
+    }
+
+    saveButton.disabled = true;
 
     try {
+        const response = await fetch("/api/recipes", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                recipe: recipe,
+                shortcode: shortcode
+            })
+        });
 
-        const response =
-            await fetch("/api/chat", {
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-                    recipe: recipe,
-                    question: question
-                })
-            });
-
-
-        const data =
-            await response.json();
-
+        const data = await response.json();
 
         if (!response.ok) {
-
             throw new Error(
-                data.error ||
-                "답변을 가져오지 못했습니다."
+                data.error || "레시피를 저장하지 못했습니다."
             );
-
         }
 
-
-        // AI 답변 표시
-        aiMessage.textContent =
-            data.answer;
-
+        saveButton.textContent = "♥ 저장됨";
 
     } catch (error) {
-
         console.error(error);
-
-        aiMessage.textContent =
-            error.message;
-
-
-    } finally {
-
-        // 버튼 다시 활성화
-        askButton.disabled = false;
-
-        // 입력창에 다시 포커스
-        questionInput.focus();
-
+        alert(error.message);
+        saveButton.disabled = false;
     }
 }

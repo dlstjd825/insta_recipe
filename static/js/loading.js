@@ -36,6 +36,11 @@ async function extractRecipe() {
             JSON.stringify(data.recipe)
         );
 
+        sessionStorage.setItem(
+            "shortcode",
+            data.shortcode
+        );
+
         window.location.href = "/recipe";
     } catch (error) {
         clearTimeout(timeoutId);
