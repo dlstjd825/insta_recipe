@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Recipe Extractor{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+
+    {% block css %}{% endblock %}
+</head>
+<body>
+    <header class="header">
+        <a href="/" class="logo">Recipe Extractor</a>
+        <a href="/saved" class="saved-button">저장한 레시피</a>
+    </header>
+
+    {% block content %}{% endblock %}
+
+    {% block js %}{% endblock %}
+</body>
+</html>

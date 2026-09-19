@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipe Extractor</title>
+{% extends "base.html" %}
+
+{% block title %}
+Recipe Extractor
+{% endblock %}
+
+{% block css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-</head>
+{% endblock %}
 
-<body>
-    <header class="header">
-        <div class="logo">Recipe Extractor</div>
-        <a href="/saved" class="saved-button">저장한 레시피</a>
-    </header>
-
+{% block content %}
     <main class="home-main">
         <div class="intro">
             <h1>인스타 레시피를<br>쉽게 저장하세요</h1>
@@ -42,5 +38,5 @@
             </div>
         </form>
     </main>
-</body>
-</html>
+{% endblock %}
+

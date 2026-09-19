@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>저장한 레시피</title>
+{% extends "base.html" %}
+
+{% block title %}
+저장한 레시피
+{% endblock %}
+
+{% block css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/saved.css') }}">
-    <script defer src="{{ url_for('static', filename='js/saved.js') }}"></script>
-</head>
-<body>
-    <header class="header">
-        <div class="logo">Recipe Extractor</div>
-    </header>
+{% endblock %}
 
+{% block content %}
     <main class="saved-main">
         <a href="/" class="back-button">← 돌아가기</a>
 
@@ -20,5 +17,8 @@
 
         <div id="saved-list" class="saved-list"></div>
     </main>
-</body>
-</html>
+{% endblock %}
+
+{% block js %}
+<script defer src="{{ url_for('static', filename='js/saved.js') }}"></script>
+{% endblock %}

@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipe</title>
+{% extends "base.html" %}
+
+{% block title %}
+Recipe
+{% endblock %}
+
+{% block css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/recipe.css') }}">
-    <script defer src="{{ url_for('static', filename='js/recipe.js') }}"></script>
-</head>
+{% endblock %}
 
-<body>
-    <header class="header">
-        <div class="logo">Recipe Extractor</div>
-    </header>
-
+{% block content %}
     <main class="recipe-main">
         <a href="/" class="back-button">← 다시 추출하기</a>
 
@@ -67,5 +63,8 @@
             </div>
         </section>
     </main>
-</body>
-</html>
+{% endblock %}
+
+{% block js %}
+<script defer src="{{ url_for('static', filename='js/recipe.js') }}"></script>
+{% endblock %}

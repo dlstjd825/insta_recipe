@@ -73,3 +73,15 @@
     text-align: center;
     padding: 60px 0;
 }
+
+.back-button {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.back-button:hover {
+    color: #222;
+}
